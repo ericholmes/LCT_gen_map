@@ -6,6 +6,8 @@ library(ggnewscale)
 library(elevatr)
 library(hillshader)
 library(raster)
+library(tidyterra)
+library(ggspatial)
 
 # Get US state map data
 us_states <- map_data("state")
@@ -74,3 +76,4 @@ ggplot(data = nevada_sf) +
                          pad_x = unit(.02, "in"),pad_y = unit(.02, "in"))
 
 dev.off()
+

@@ -6,6 +6,7 @@ library(ggnewscale)
 library(elevatr)
 library(hillshader)
 library(raster)
+library(terra)
 library(tidyterra)
 library(ggspatial)
 
@@ -29,9 +30,10 @@ lct_sf_all <- st_as_sf(lct_points_all[is.na(lct_points_all$X) == F,], coords = c
 huc8_all <- nhdplusTools::get_huc(AOI = nevada_sf, type = "huc08")
 huc8_all <- st_transform(huc8_all, st_crs(nevada_sf))
 huc8_all$huc4 <- substr(huc8_all$huc8, 1, 4)
+huc8_all$huc6 <- substr(huc8_all$huc8, 1, 6)
 
 huc8_dissolve <- huc8_all %>%
-  group_by(huc4) %>%  # Group by the categorical variable
+  group_by(huc6) %>%  # Group by the categorical variable
   summarise(geometry = st_union(geometry)) %>%  # Combine geometries
   st_as_sf()  # Ensure the result is an sf object
 
